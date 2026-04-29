@@ -1,3 +1,10 @@
-.vs
+/*
+
+!space
 space/*
+
+!space/Assets
+space/Assets/*
+
 !space/Assets/Scripts
+space/Assets/Scripts/*.cs.meta
