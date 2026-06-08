@@ -4,19 +4,18 @@ public class CameraFollowShip : MonoBehaviour
 {
     public Transform ship;
 
-    private float smoothness = 0.25f;
-    private Vector3 offset = new Vector3(0, 0, -20);
-    private Vector3 velocity = Vector3.zero;
+    private float smoothness = 0.03f;
+    private Vector3 offset = new Vector3(0f, 0f, -1f);
+    private Vector3 shipPosOffset;
 
-    void LateUpdate()
+    void Update()
     {
-        Vector3 shipPosition = ship.position + offset;
+        shipPosOffset = ship.position + offset;
 
-        transform.position = Vector3.SmoothDamp
+        transform.position = Vector3.Lerp
             (
             transform.position,
-            shipPosition,
-            ref velocity,
+            shipPosOffset,
             smoothness
             );
     }

@@ -1,36 +1,40 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MoveToClick : MonoBehaviour
 {
-    private float speed = 3f;
+    private float speed = 2f;
     private bool isMoving;
-    private Vector3 mouseClick;
+
+    private Vector2 screenPos;
+    private Vector2 clickPos;
+    private Vector2 moveToPos;
     private Vector3 direction;
-    private Vector3 velocity = Vector3.zero;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            mouseClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseClick.z = 15f;
+            screenPos = Mouse.current.position.ReadValue();
+            clickPos = new Vector3(screenPos.x, screenPos.y);
+            moveToPos = Camera.main.ScreenToWorldPoint(clickPos);
+
             isMoving = true;
         }
 
         if (isMoving)
         {
-            transform.position = Vector3.SmoothDamp
+            transform.position = Vector3.MoveTowards
                 (
                 transform.position,
-                mouseClick,
-                ref velocity,
-                speed
+                moveToPos,
+                speed * Time.deltaTime
                 );
 
             direction = new Vector3
                 (
-                mouseClick.x - transform.position.x,
-                mouseClick.y - transform.position.y
+                moveToPos.x - transform.position.x,
+                moveToPos.y - transform.position.y
                 );
 
             transform.up += direction;
