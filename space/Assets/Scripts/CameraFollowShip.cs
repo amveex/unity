@@ -4,11 +4,11 @@ public class CameraFollowShip : MonoBehaviour
 {
     public Transform ship;
 
-    private float smoothness = 0.03f;
-    private Vector3 offset = new Vector3(0f, 0f, -1f);
+    private const float smoothness = 0.005f;
+    private Vector3 offset = new Vector3(0f, 0f, -5f);
     private Vector3 shipPosOffset;
 
-    void Update()
+    private void Update()
     {
         shipPosOffset = ship.position + offset;
 

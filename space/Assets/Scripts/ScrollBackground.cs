@@ -9,16 +9,16 @@ public class ScrollBackground : MonoBehaviour
     private Vector2 offsetMat;
     private Vector3 offsetCam;
 
-    void Start()
+    private void Start()
     {
         mr = GetComponent<MeshRenderer>();
         mat = mr.material;
 
         offsetMat = mat.mainTextureOffset;
-        offsetCam = new Vector3(0f, 0f, 5f);
+        offsetCam = new Vector3(0f, 0f, 10f);
     }
 
-    void Update()
+    private void Update()
     {
         // background follows camera position
         transform.position = cam.position + offsetCam;
