@@ -3,12 +3,7 @@ using UnityEngine.InputSystem;
 
 public class MoveToClick : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem engine1;
-    [SerializeField] private ParticleSystem engine2;
-    [SerializeField] private ParticleSystem engine3;
-    [SerializeField] private ParticleSystem engine4;
-    [SerializeField] private ParticleSystem engine5;
-    [SerializeField] private ParticleSystem engine6;
+    [SerializeField] private ParticleSystem[] flames;
     [SerializeField] private AudioSource sound;
 
     private float speed = 2f; // change the value to increase/decrease speed
@@ -96,55 +91,27 @@ public class MoveToClick : MonoBehaviour
 
     private void TurnOnParticles()
     {
-        if 
-        (
-            !engine1.isPlaying && !engine2.isPlaying && !engine3.isPlaying &&
-            !engine4.isPlaying && !engine5.isPlaying && !engine6.isPlaying
-        )
+        foreach (ParticleSystem ps in flames)
         {
-            engine1.Play();
-            engine2.Play();
-            engine3.Play();
-            engine4.Play();
-            engine5.Play();
-            engine6.Play();
+            if (!ps.isPlaying) ps.Play();
         }
     }
 
     private void TurnOffParticles()
     {
-        if 
-        (
-            engine1.isPlaying && engine2.isPlaying && engine3.isPlaying &&
-            engine4.isPlaying && engine5.isPlaying && engine6.isPlaying
-        )
+        foreach (ParticleSystem ps in flames)
         {
-            engine1.Stop();
-            engine2.Stop();
-            engine3.Stop();
-            engine4.Stop();
-            engine5.Stop();
-            engine6.Stop();
+            if (ps.isPlaying) ps.Stop();
         }
     }
 
     private void TurnOnSound()
     {
-        if (sound != null && !sound.isPlaying)
-        {
-            sound.volume = 0.25f;
-            sound.loop = true;
-            sound.Play();
-        }
+        if (!sound.isPlaying) sound.loop = true; sound.Play();
     }
 
     private void TurnOffSound()
     {
-        if (sound != null && sound.isPlaying)
-        {
-            sound.loop = false;
-            sound.Pause();
-            sound.volume = 0f;
-        }
+        if (sound.isPlaying) sound.loop = false; sound.Stop();
     }
 }
